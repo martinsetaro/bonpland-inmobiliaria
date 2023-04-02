@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: 'RubikR';
+    src: url('../../public/font/RubikR.ttf');
+}
+
+html
+{
+    font-family: 'RubikR';
+}
