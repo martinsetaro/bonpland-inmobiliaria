@@ -5,8 +5,8 @@ import style from "../styles/Home.module.css";
 
 const Home = () => {
   return (
-    <div className="w-full p-2">
-      <div className={`${style.backgroundHome}`}>
+    <div className="w-full">
+      <div className={`${style.backgroundHome} -mt-20`}>
         <div className="w-72 h-72 bg-slate-600/[.7] text-white rounded-md items-center p-3 flex flex-col mt-24 ml-12">
           <h3 className="text-2xl">Hermosa propiedad</h3>
           <h3 className="text-2xl">Costa atlantica</h3>

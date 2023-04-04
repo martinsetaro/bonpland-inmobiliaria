@@ -1,8 +1,8 @@
 import Layout from '@/components/Layout'
 import React from 'react'
-import Head from 'next/head'
 import Home from '@/components/Home'
-import ListadoPropiedades from '@/components/listadoPropiedades'
+import Filtros from '@/components/Filtros'
+
 
 const index = () => {
 
@@ -12,7 +12,7 @@ const index = () => {
     titulo="BonPland Inmobiliaria"
     >
       <Home/>
-      <ListadoPropiedades/>
+      <Filtros/>
     </Layout>
   )
 }
