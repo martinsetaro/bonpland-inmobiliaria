@@ -96,8 +96,14 @@ function precios(item){
 
 }
 
-
-
+const handlerDetalles = (e)=>{
+   e.preventDefault();
+   const data = e.target.parentElement;
+   const elementBtn = data.querySelector('button');
+   const btn = elementBtn.dataset.id;
+   localStorage.setItem('id',btn)
+   window.location.href="/ItemDetail"
+}
 
 
 useEffect(()=>{
@@ -113,47 +119,47 @@ useEffect(()=>{
 
   return (
     <div className='w-full'>
-        <h2 className='text-6xl text-center mt-12'>Propiedades</h2>
-        <h3 className='text-2xl text-center mt-12'>{propiedades.length} propiedades encontradas</h3>
-        <div className='w-full flex mt-24 mb-24'>
+        <h2 className='text-6xl text-center mt-2'>Propiedades</h2>
+        <h3 className='text-2xl text-center mt-2'>{propiedades.length} propiedades encontradas</h3>
+        <div className='w-full flex mt-2 mb-24'>
         <div className='w-1/3 flex flex-col h-auto p-1 mt-4 m-auto bg-slate-600'>
-            <label className='text-xl text-white mb-2'>Ambientes</label>
+            <label className='text-xl text-white mb-1'>Ambientes</label>
             <select 
             onChange={(e)=> {
                 setSelAmbiente(e.target.value)
                
             }}
-            className='mb-4'>
+            className='mb-1'>
                 <option value=''>Seleccionar ambientes</option>
                 <option value="3">3 ambientes</option>
                 <option value="4">4 ambientes</option>
                 <option value="5">5 ambientes</option>
                 <option value="6">6 ambientes</option>
             </select>
-            <label className='text-xl text-white mb-2'>Posee cochera</label>
+            <label className='text-xl text-white mb-1'>Posee cochera</label>
             <select 
              onChange={(e)=> {
                 setSelCochera(e.target.value)  
             }}
-            className='mb-4'>
+            className='mb-1'>
                 <option value=''>Seleccionar cochera</option>
                 <option value="si">Si</option>
                 <option value="no">No</option>
                 
             </select>
-            <label className='text-xl text-white mb-2'>Contrato</label>
+            <label className='text-xl text-white mb-1'>Contrato</label>
             <select 
              onChange={(e)=> setSelContrato(e.target.value)}
-            className='mb-4'>
+            className='mb-1'>
                 <option value=''>Seleccionar contrato</option>
                 <option value="venta">Venta</option>
                 <option value="alquiler">Alquiler</option>
                 
             </select>
-            <label className='text-xl text-white mb-2'>Superficie M2</label>
+            <label className='text-xl text-white mb-1'>Superficie M2</label>
             <select 
              onChange={(e)=> setSelSuperficie(e.target.value)}
-            className='mb-4'>
+            className='mb-1'>
                 <option value=''>Seleccionar superficies</option>
                 <option value="40">40 m2</option>
                 <option value="50">50 m2</option>
@@ -163,10 +169,10 @@ useEffect(()=>{
                 <option value="90">90 m2</option>
                 <option value="100">100 m2</option>
             </select>
-            <label className='text-xl text-white mb-2'>Provincias</label>
+            <label className='text-xl text-white mb-1'>Provincias</label>
             <select 
              onChange={(e)=> setSelProvincia(e.target.value)}
-            className='mb-4'>
+            className='mb-1'>
                 <option value=''>Seleccionar provincia</option>
                 <option value="Mendoza">Mendoza</option>
                 <option value="Cordoba">Cordoba</option>
@@ -178,10 +184,10 @@ useEffect(()=>{
                 <option value="Santiago del Estero">Santiago del Estero</option>
                 <option value="San Juan">San Juan</option>
             </select>
-            <label className='text-xl text-white mb-2'>Precio</label>
+            <label className='text-xl text-white mb-1'>Precio</label>
             <select 
              onChange={(e)=> setSelPrecio(e.target.value)}
-            className='mb-4'>
+            className='mb-1'>
                 <option value=''>Seleccionar Precio</option>
                 <option value="30000">$ 30000 Ar.-</option>
                 <option value="40000">$ 40000 Ar.-</option>
@@ -197,27 +203,36 @@ useEffect(()=>{
            className='p-1 bg-white text-slate-600 border border-1 rounded-md font-bold uppercase'>Filtrar</button>
            <button 
            onClick={limpiarFiltro}
-           className='p-1 bg-white text-slate-600 border border-1 rounded-md mt-2 font-bold uppercase'>Quitar filtros</button>
+           className='p-1 bg-white text-slate-600 border border-1 rounded-md mt-2 font-bold uppercase'>Eliminar filtros</button>
         </div>
+        { propiedades.length === 0 ? <div className='w-full flex flex-col'>
+            <h2 className='text-xl text-center text-slate-600 uppercase'>No existen registros</h2>
+            <h2 className='text-xl text-center text-slate-600 uppercase'>Elimine los filtros</h2>
         
+        </div> : 
         <div className='w-full flex justify-around flex-wrap'>
+           
             {propiedades.map( propiedad => {
                 return(
-                    <div key={propiedad.id} className='border border-y-gray-100 w-80 pb-2 mb-2 mt-4'>
-                        <Image className='h-36' src={"/img/casa"+ propiedad.id +".webp"} alt="casa" width={380} height={200}/>
-                        <h2 className='mt-2'>Ambientes: {propiedad.ambientes}</h2>
-                        <h2>Cochera: {propiedad.cochera}</h2>
-                        <h2>Provincia: {propiedad.provincia}</h2>
-                        <h2>Superficie: {propiedad.superficie} M2</h2>
-                        <h2>Contrato: {propiedad.contrato}</h2>
-                        <h2>Referencia: N-{propiedad.referencia}</h2>
-                        <h2 className='text-4xl mt-2 mb-2 text-slate-600'>Precio: $ {propiedad.precio}</h2>
-                        <button className="bg-slate-600 text-white font-bold uppercase p-1 rounded-md ml-4 mt-14">Más detalles</button>
+                     <div key={propiedad.id} className='border border-y-gray-100 w-20 h-auto pb-1 mb-2 mt-2'>
+                        <Image className='h-15' src={"/img/casa"+ propiedad.id +".webp"} alt="casa" width={380} height={200}/>
+                        <h2 className='mt-2 ml-4'>Ambientes: {propiedad.ambientes}</h2>
+                        <h2 className='ml-4'>Cochera: {propiedad.cochera}</h2>
+                        <h2 className='ml-4'>Provincia: {propiedad.provincia}</h2>
+                        <h2 className='ml-4'>Superficie: {propiedad.superficie} M2</h2>
+                        <h2 className='ml-4'>Contrato: {propiedad.contrato}</h2>
+                        <h2 className='ml-4'>Referencia: N-{propiedad.referencia}</h2>
+                        <h2 className='text-2xl mt-2 mb-2 text-center text-slate-600 uppercase font-bold'>Precio: $ {propiedad.precio}</h2>
+                        <button
+                        onClick={handlerDetalles}
+                        data-id={propiedad.id}
+                        className="bg-slate-600 text-white font-bold uppercase p-1 rounded-md ml-4 mt-4">Más detalles</button>
                     </div>
                 )
             })}
+        
 
-        </div>
+        </div>}
     </div>
 </div>
   )
