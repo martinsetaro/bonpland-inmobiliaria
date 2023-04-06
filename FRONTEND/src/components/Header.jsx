@@ -18,10 +18,10 @@ const Header = () => {
          <div className='w-full flex justify-around items-center'>
            <h2>Telefono : 23444445353</h2>
            <h2>Horarios de atención: Lun a Vie 9:00 a 16:00</h2>
-           <span className='flex gap-2 p-1 border border-slate-500 items-center rounded-md cursor-pointer'>
+           <Link href="/Login"><span className='flex gap-2 p-1 border border-slate-500 items-center rounded-md cursor-pointer'>
               <FaUser/>
               <h2>Login</h2>
-           </span>
+           </span></Link>
          </div>
       </div>
       <nav className='w-full h-4 bg-slate-700 flex justify-around text-white items-center'>

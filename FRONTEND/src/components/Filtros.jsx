@@ -41,7 +41,7 @@ console.log(objeto.provincia)
 
 const handlerFiltro = () => {
 
-const newPropiedades = propiedades.filter(ambientes).filter(cocheras).filter(provincias).filter(superficies).filter(precios);
+const newPropiedades = propiedades.filter(ambientes).filter(cocheras).filter(provincias).filter(superficies).filter(precios).filter(contratos);
 
 setPropiedades(newPropiedades)
 
@@ -87,6 +87,15 @@ function precios(item){
     const { precio } = objeto
     if(precio){
         return item.precio === Number(precio)
+    }
+    setPropiedades(restaurar)
+    return item;
+
+}
+function contratos(item){
+    const { contrato } = objeto
+    if(contrato){
+        return item.contrato === contrato
     }
     setPropiedades(restaurar)
     return item;
@@ -161,6 +170,7 @@ useEffect(()=>{
              onChange={(e)=> setSelSuperficie(e.target.value)}
             className='mb-1'>
                 <option value=''>Seleccionar superficies</option>
+                <option value="30">30 m2</option>
                 <option value="40">40 m2</option>
                 <option value="50">50 m2</option>
                 <option value="60">60 m2</option>
@@ -220,9 +230,9 @@ useEffect(()=>{
                         <h2 className='ml-4'>Cochera: {propiedad.cochera}</h2>
                         <h2 className='ml-4'>Provincia: {propiedad.provincia}</h2>
                         <h2 className='ml-4'>Superficie: {propiedad.superficie} M2</h2>
-                        <h2 className='ml-4'>Contrato: {propiedad.contrato}</h2>
                         <h2 className='ml-4'>Referencia: N-{propiedad.referencia}</h2>
                         <h2 className='text-2xl mt-2 mb-2 text-center text-slate-600 uppercase font-bold'>Precio: $ {propiedad.precio}</h2>
+                        {propiedad.contrato == "venta" ? <h2 className='bg-green-500 text-white font uppercase text-center p-1 '>En venta</h2> : <h2 className='bg-orange-400 text-white font uppercase text-center p-1 '>En alquiler</h2>}
                         <button
                         onClick={handlerDetalles}
                         data-id={propiedad.id}

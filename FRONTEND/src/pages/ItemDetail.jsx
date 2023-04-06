@@ -38,9 +38,9 @@ const ItemDetail = () => {
         {filtrado.map((item) => {
           return (
             <div className="w-full h-auto p-1">
-              <h2>Hermosa Propiedad no deje pasar la oportunidad</h2>
+              {item.superficie == 30 ? <h2 className="text-2xl text-slate-600 uppercasemb-2">Departamento</h2> : <h2 className="text-2xl text-slate-600 uppercasemb-2">Casa</h2>}
               <h2>
-                Esta casa cuenta con : {item.ambientes} ambientes luminosos
+                Esta propiedad cuenta con : {item.ambientes} ambientes luminosos.
               </h2>
               <h2>Lugar de ubicación : {item.provincia}</h2>
               <h2>Superficie en M2 : {item.superficie}</h2>
