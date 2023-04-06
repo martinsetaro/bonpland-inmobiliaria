@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import style from '../styles/Home.module.css'
 import logo from '../../public/img/logo.png';
 import { FaUser } from "react-icons/fa";
 import Link from 'next/link';
@@ -24,11 +25,10 @@ const Header = () => {
          </div>
       </div>
       <nav className='w-full h-4 bg-slate-700 flex justify-around text-white items-center'>
-       <Link className='pointer' href="/">Inicio</Link>
-       <Link className='pointer' href="/">Ofertas</Link>
-       <Link className='pointer' href="/">Presupuestos</Link>
-       <Link className='pointer' href="/">Quienes somos</Link>
-       <Link className='pointer' href="/">Nuestra trayectoria</Link>
+       <Link className={`${style.efecto} pointer`} href="/">Inicio</Link>
+       <Link className={`${style.efecto} pointer`} href="/Contacto">Contacto</Link>
+       <Link className={`${style.efecto} pointer`} href="/Nosotros">Quienes somos</Link>
+       <Link className={`${style.efecto} pointer`} href="/Trayectoria">Nuestra trayectoria</Link>
       </nav>
     
     

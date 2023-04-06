@@ -122,7 +122,7 @@ useEffect(()=>{
         <h2 className='text-6xl text-center mt-2'>Propiedades</h2>
         <h3 className='text-2xl text-center mt-2'>{propiedades.length} propiedades encontradas</h3>
         <div className='w-full flex mt-2 mb-24'>
-        <div className='w-1/3 flex flex-col h-auto p-1 mt-4 m-auto bg-slate-600'>
+        <div className='w-1/3 flex flex-col h-auto p-1 mt-4 m-auto bg-slate-600 sticky top-0'>
             <label className='text-xl text-white mb-1'>Ambientes</label>
             <select 
             onChange={(e)=> {
