@@ -7,8 +7,8 @@ const { createPool } = pkg;
 const pool = createPool({
     
     host: 'aws.connect.psdb.cloud',
-    user: '01kn2fbvtzdrnj5hu9ln',
-    password: 'pscale_pw_IKXxLMWbS55hPAOXtVpJnsQ2zmUvh0wC9CqLdDYvdYi',
+    user: 'n5ldnyrq930flldj2hob',
+    password: 'pscale_pw_3xsxSxU9pAtcoK129y2faCVVYCJpOZct10asYqYCGc2',
     database: 'bonpland',
     ssl: {
       rejectUnauthorized: false,

@@ -54,7 +54,16 @@ router.put('/actualizar/propiedad/:id', async (req, res) => {
     }
   });
   
+//ELIMINAR PRODUCTO 
 
+router.delete('/eliminar/propiedad/:id', async(req,res)=>{
+
+  const {id} = req.params;
+  const [result] = await pool.query('DELETE FROM propiedad WHERE id = ?', [id]);
+  res.status(200).send({ message: 'La propiedad ha sido eliminada' });
+
+
+})
 
 
 
