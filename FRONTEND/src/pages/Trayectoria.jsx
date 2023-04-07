@@ -3,7 +3,7 @@ import Layout from "@/components/Layout";
 import "animate.css";
 import Image from "next/image";
 import trayectoria from '../../public/img/trayectoria.jpg'
-import trayectoria2 from '../../public/img/trayectoria2.jpg'
+import trayectoria2 from '../../public/img/trayectoria2.webp'
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 

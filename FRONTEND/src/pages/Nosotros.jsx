@@ -1,7 +1,7 @@
 import React,{ useEffect} from "react";
 import Layout from '@/components/Layout'
 import Image from 'next/image'
-import nosotros from '../../public/img/nosotros.jpg'
+import nosotros from '../../public/img/nosotros.webp'
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 

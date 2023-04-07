@@ -10,7 +10,10 @@ const Login = () => {
 const [errorU,setErrorU] = useState(false)
 const [errorP,setErrorP] = useState(false)
 const [user,setUser] = useState('')
+const [token,setToken] = useState('')
 const [ pass,setPass ] = useState('')
+
+
 
 
 const ingresar = (e)=>{
@@ -40,7 +43,8 @@ e.preventDefault();
         draggable: true,
         progress: undefined,
         theme: "light",
-        }); 
+        });
+        localStorage.setItem('dataToken',"rol_admin")
         setTimeout(() => {
           window.location.href="/DashBoard"  
         },3000);
@@ -55,7 +59,7 @@ e.preventDefault();
 
   return (
     <Layout titulo="BonPland | Login">
-      <div className='w-full h-auto'>
+      <div className='w-full h-auto pb-4'>
           <div className='w-60 h-25 flex m-auto pt-3'>
 
            <div className='w-1/2 h-auto'>

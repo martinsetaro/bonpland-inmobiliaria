@@ -2,6 +2,10 @@ import React, { useState , useEffect } from 'react'
 import Layout from '@/components/Layout'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+
 
 
 
@@ -20,7 +24,9 @@ const DashBoard = () => {
   const [selContrato,setSelContrato] = useState('');
   const [selReferencia,setSelReferencia] = useState('');
   const [selPrecio,setSelPrecio] = useState('');
+  const [auth,setAuth] = useState(false)
 
+  const router = useRouter();
 
 
 
@@ -58,7 +64,7 @@ const DashBoard = () => {
       })
       .then( response => response.json()).then( data => {
         if(data){
-          toast.success('La propiedad fue registrada con exito!!', {
+          toast.success('Registro exitoso!!', {
             position: "top-center",
             autoClose: 3000,
             hideProgressBar: false,
@@ -122,7 +128,22 @@ if([selAmbiente,selCochera,selContrato,selPrecio,selProvincia,selReferencia,selS
 
   const handlerEditar = (e)=>{
     e.preventDefault();
-    enviarActualizacion();
+    Swal.fire({
+      title: 'Está seguro de realizar los cambios?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+      denyButtonText: `No`,
+    }).then((result) => {
+     
+      if (result.isConfirmed) {
+        
+        enviarActualizacion();
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+    
   
 
   }
@@ -147,7 +168,8 @@ if([selAmbiente,selCochera,selContrato,selPrecio,selProvincia,selReferencia,selS
     })
     .then( response => response.json())
     .then( data => {
-      toast.success('La propiedad fue actualizada correctamente!!', {
+
+      toast.success('Actualización realizada!!', {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -158,24 +180,83 @@ if([selAmbiente,selCochera,selContrato,selPrecio,selProvincia,selReferencia,selS
         theme: "light",
         }); 
         setTimeout(() => {
+          window.location.reload();  
+        },3000);
+        setTimeout(() => {
           window.location.reload()  
         },3000);
     })
     .catch(err => console.log(err))
   }
- 
-  
 
+  //ELIMINAR PROPIEDAD
+
+  const handlerEliminar = (e)=>{
+e.preventDefault();
+     const data = e.target.parentElement;
+     const elementBtn = data.querySelector('.btnEditar');
+     const btnEditar = elementBtn.dataset.id
+     setSelId(btnEditar)
+
+     Swal.fire({
+      title: 'Está seguro que desea eliminar este item?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+      denyButtonText: `No`,
+    }).then((result) => {
+     
+      if (result.isConfirmed) {
+        fetch(`http://localhost:4001/eliminar/propiedad/${btnEditar}`,{
+          method:'DELETE'
+    
+        })
+        .then( response => response.json()).then( data => {
+          toast.success('Eliminado con exito!', {
+            position: "top-right",
+            autoClose: 2000, 
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+        }).catch( err => console.log(err))    
+
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+
+
+  }
+
+  
 
 
   useEffect(()=>{
   recibirDatos();
 
+  if(localStorage.getItem('dataToke')){
+    setAuth(true)
 
-  },[])
+  }
+
+  if(localStorage.getItem('dataToken') != 'rol_admin'){
+    router.push("Error404")
+    setTimeout(()=>{
+      window.location.href="/"
+    },2000)
+  }
 
 
 
+
+  },[router,auth])
+
+  
+ 
 
 
 
@@ -195,7 +276,7 @@ if([selAmbiente,selCochera,selContrato,selPrecio,selProvincia,selReferencia,selS
           <select
           value={selAmbiente}
           onChange={(e)=> setSelAmbiente(e.target.value)}
-          className="mb-1 h-2 pl-1">
+          className="mb-1 h-2 pl-1 border-slate-300 border">
           <option value=''>Seleccionar ambientes</option>
                 <option value="3">3 ambientes</option>
                 <option value="4">4 ambientes</option>
@@ -206,7 +287,7 @@ if([selAmbiente,selCochera,selContrato,selPrecio,selProvincia,selReferencia,selS
           <select
           value={selProvincia}
           onChange={(e)=> setSelProvincia(e.target.value)}
-           className="mb-1 h-2 pl-1">
+           className="mb-1 h-2 pl-1 border-slate-300 border">
           <option value=''>Seleccionar provincia</option>
                 <option value="Mendoza">Mendoza</option>
                 <option value="Cordoba">Cordoba</option>
@@ -222,7 +303,7 @@ if([selAmbiente,selCochera,selContrato,selPrecio,selProvincia,selReferencia,selS
           <select 
          value={selSuperficie}
           onChange={(e)=> setSelSuperficie(e.target.value)}
-          className="mb-1 h-2 pl-1">
+          className="mb-1 h-2 pl-1 border-slate-300 border">
           <option value=''>Seleccionar superficies</option>
                 <option value="30">30 m2</option>
                 <option value="40">40 m2</option>
@@ -238,7 +319,7 @@ if([selAmbiente,selCochera,selContrato,selPrecio,selProvincia,selReferencia,selS
           <select 
           value={selCochera}
           onChange={(e)=> setSelCochera(e.target.value)}
-          className="mb-1 h-2 pl-1">
+          className="mb-1 h-2 pl-1 border-slate-300 border">
             <option value="">Seleccione cochera</option>
             <option value="si">Si tiene</option>
             <option value="no">No tiene</option>
@@ -247,7 +328,7 @@ if([selAmbiente,selCochera,selContrato,selPrecio,selProvincia,selReferencia,selS
           <select 
           value={selContrato}
           onChange={(e)=> setSelContrato(e.target.value)}
-          className="mb-1 h-2 pl-1">
+          className="mb-1 h-2 pl-1 border-slate-300 border">
             <option value="">Seleccione contrato</option>
             <option value="alquiler">Alquiler</option>
             <option value="venta">Venta</option>
@@ -261,7 +342,7 @@ if([selAmbiente,selCochera,selContrato,selPrecio,selProvincia,selReferencia,selS
           <select 
           value={selPrecio}
           onChange={(e)=> setSelPrecio(e.target.value)}
-          className="mb-1 h-2 pl-1">
+          className="mb-1 h-2 pl-1 border-slate-300 border">
           <option value=''>Seleccionar Precio</option>
                 <option value="30000">$ 30000 Ar.-</option>
                 <option value="40000">$ 40000 Ar.-</option>
@@ -297,7 +378,9 @@ if([selAmbiente,selCochera,selContrato,selPrecio,selProvincia,selReferencia,selS
                 <h2 >Referencia :<span>{dato.referencia}</span></h2>
                 <h2 >Precio :<span>{dato.precio}</span></h2>
                 <div className='flex flex-col h-auto'>
-                <button className="bg-red-500 p-0.5 text-white text-sm h-2 uppercase">Eliminar</button>
+                <button
+                onClick={handlerEliminar}
+                className="bg-red-500 p-0.5 text-white text-sm h-2 uppercase">Eliminar</button>
                 <button
                 onClick={seleccionarId}
                 data-id={dato.id}
