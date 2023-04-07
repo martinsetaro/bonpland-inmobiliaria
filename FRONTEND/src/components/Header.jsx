@@ -18,7 +18,7 @@ const Header = () => {
          <div className='w-full flex justify-around items-center'>
            <h2>Telefono : 23444445353</h2>
            <h2>Horarios de atención: Lun a Vie 9:00 a 16:00</h2>
-           <Link href="/Login"><span className='flex gap-2 p-1 border border-slate-500 items-center rounded-md cursor-pointer'>
+           <Link href="/Login"><span className='flex gap-1 p-1 border border-slate-500 items-center rounded-md cursor-pointer hover:bg-slate-600 hover:text-white'>
               <FaUser/>
               <h2>Login</h2>
            </span></Link>
